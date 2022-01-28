@@ -11,6 +11,7 @@ namespace Quizzappy.Models
         [Key]
         public int QuizId { get; set; }
         public string QuizName { get; set; }
+        public int QuizScore { get; set; }
         public virtual List<MultipleChoiceQuestion> MultipleChoiceQuestions { get; set; }
         public virtual List<ShortAnswerQuestion> ShortAnswerQuestions { get; set; }
         public virtual List<FillTheBlanksQuestion> FillTheBlanksQuestions { get; set; }

@@ -23,9 +23,10 @@ namespace Quizzappy
             context.Quizzes.AddRange(5.Times(x =>
             {
                 var quizName = $"Quiz {x,-3:000}";
+                int totalScore = 0;
 
 
-                var questionLength = rnd.Next(1, 21);
+                var questionLength = rnd.Next(3, 10);
                 var multipleChoiceQuestions = new List<MultipleChoiceQuestion>();
                 var shortAnswerQuestions = new List<ShortAnswerQuestion>();
                 var fillTheBlanksQuestions = new List<FillTheBlanksQuestion>();
@@ -71,14 +72,19 @@ namespace Quizzappy
                                 };
 
                                 totalAnswers += 5;
+                                int answerindex = rnd.Next(1, 4);
+                                TextAnswer finalAnswer = multipleChoiceAnswers[answerindex];
 
                                 var question = new MultipleChoiceQuestion
                                 {
                                     QuestionId = totalQuestions,
-                                    QuestionText = beginningQuestion + endQuestion + $"{totalQuestions}",
+                                    QuestionText = beginningQuestion + " " + endQuestion + $" ?",
                                     Answers = multipleChoiceAnswers,
-                                    CorrectAnswer = "E",
+                                    CorrectAnswer = finalAnswer,
+                                    Score = 1
                                 };
+
+                                totalScore += question.Score;
 
                                 multipleChoiceQuestions.Add(question);
                                 break;
@@ -88,10 +94,12 @@ namespace Quizzappy
                                 var question = new ShortAnswerQuestion
                                 {
                                     QuestionId = totalQuestions,
-                                    QuestionText = beginningQuestion + endQuestion + $"{totalQuestions}",
-                                    WordLimit = 500+5*rnd.Next(0, 100)
+                                    QuestionText = beginningQuestion + " " + endQuestion + $" ?",
+                                    WordLimit = rnd.Next(50, 500),
+                                    Score = 5
                                 };
 
+                                totalScore += question.Score;
                                 shortAnswerQuestions.Add(question);
                                 break;
                             }
@@ -115,9 +123,12 @@ namespace Quizzappy
 
                                 var question = new FillTheBlanksQuestion
                                 {
-                                    CorrectAnswers = fillTheBlanksAnswers
+                                    CorrectAnswers = fillTheBlanksAnswers,
+                                    Score = 2
+                                    
                                 };
 
+                                totalScore += question.Score;
                                 fillTheBlanksQuestions.Add(question);
                                 break;
                             }
@@ -130,9 +141,11 @@ namespace Quizzappy
                 {
                     QuizName = quizName,
                     QuizId = x,
+                    QuizScore = totalScore,
                     MultipleChoiceQuestions = multipleChoiceQuestions,
                     ShortAnswerQuestions = shortAnswerQuestions,
                     FillTheBlanksQuestions = fillTheBlanksQuestions
+
                 };
             }));
 

@@ -146,7 +146,10 @@ namespace Quizzappy.Controllers
                 {
                     for (int j = 0; j < quiz.MultipleChoiceQuestions.Count; j++)
                     {
-                      totalScore += quiz.MultipleChoiceQuestions[j].Score;
+                        if (answers[i][j] == quiz.MultipleChoiceQuestions[j].CorrectAnswer)
+                        {
+                            totalScore += quiz.MultipleChoiceQuestions[j].Score;
+                        }
                     }
 
                     for (int j = 0; j < quiz.ShortAnswerQuestions.Count; j++)
@@ -170,7 +173,7 @@ namespace Quizzappy.Controllers
 
                         if (allMatched)
                         {
-                            totalScore += 6;
+                            totalScore += quiz.FillTheBlanksQuestions[j].Score;
                         }
 
                     }

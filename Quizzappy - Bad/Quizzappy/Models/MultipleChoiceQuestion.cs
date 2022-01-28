@@ -9,7 +9,7 @@ namespace Quizzappy.Models
     public class MultipleChoiceQuestion : Question
     {
         [Required]
-        public List<TextAnswer> Answers { get; set; }
-        public string CorrectAnswer { get; set; }
+        public virtual List<TextAnswer> Answers { get; set; }
+        public virtual TextAnswer CorrectAnswer { get; set; }
     }
 }
